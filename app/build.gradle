@@ -6,7 +6,7 @@ android {
         applicationId names.applicationId
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 1
+        versionCode rootProject.gitCommitCount
         versionName "1.0"
         resConfigs 'en'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

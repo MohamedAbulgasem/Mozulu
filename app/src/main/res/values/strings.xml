@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Mozulu</string>
+    <string name="title_activity_daily_temps">Mozulu Forecast</string>
+    <string name="title_activity_weather_details">Weather Details</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings_night_mode">Night mode</string>
+    <string name="settings_on">On</string>
+    <string name="settings_off">Off</string>
+    <string name="settings_app_info_title">App Info</string>
+    <string name="settings_version_title">Version</string>
+    <string name="settings_version_number">1.0.0</string>
+    <string name="settings_dark_sky_reference">Powered by Dark Sky</string>
 </resources>

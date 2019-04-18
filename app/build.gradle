@@ -36,15 +36,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    // ROOM
-    implementation "android.arch.persistence.room:runtime:${versions.lifecycle}"
-    annotationProcessor "android.arch.persistence.room:compiler:${versions.lifecycle}"
-    // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:${versions.lifecycle}"
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
     // ButterKnife
     implementation "com.jakewharton:butterknife:${versions.butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterknife}"
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

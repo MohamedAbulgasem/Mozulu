@@ -1,6 +1,7 @@
 package com.mohamedabulgasem.mozulu.ui;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.mohamedabulgasem.mozulu.BuildConfig;
 import com.mohamedabulgasem.mozulu.R;
+import com.mohamedabulgasem.mozulu.data.ForecastRepository;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,8 +95,13 @@ public class SettingsActivity extends AppCompatActivity {
      */
     public void onDarkSkyReferenceLinkClicked(View view) {
         Intent intent = new Intent(INTENT_ACTION_VIEW);
-        // TODO: Add appropriate user lat & log values
-        Uri uri = Uri.parse("https://darksky.net/forecast/-33.9249,18.4241/ca12/en");
+        String url = "https://darksky.net";
+        Location location = ForecastRepository.getInstance().getLocation();
+        if (location != null) {
+            String coordinates = location.getLatitude() + "," + location.getLongitude();
+            url += "/forecast/" + coordinates + "/ca12/en";
+        }
+        Uri uri = Uri.parse(url);
         intent.setData(uri);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);

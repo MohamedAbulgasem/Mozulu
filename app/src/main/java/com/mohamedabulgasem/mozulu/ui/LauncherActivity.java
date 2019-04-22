@@ -9,6 +9,8 @@ import static android.support.v7.app.AppCompatDelegate.setDefaultNightMode;
 import static com.mohamedabulgasem.mozulu.utils.NightModeUtils.nightModeIsSet;
 
 /**
+ * Do initial setup and display a splash screen until MainActivity loads up.
+ *
  * Created by Mohamed Abulgasem on 2019/04/16.
  */
 public class LauncherActivity extends AppCompatActivity {
@@ -18,11 +20,11 @@ public class LauncherActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if (nightModeIsSet(getApplicationContext())) {
             setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
-        super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, DailyTempsActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

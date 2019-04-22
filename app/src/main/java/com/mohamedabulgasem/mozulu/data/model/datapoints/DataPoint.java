@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * This abstract class represents common properties that are shared amongst
- * the different weather type data points in the ForecastResponse response
+ * the different weather type data points in the Forecast response
  *
  * Created by Mohamed Abulgasem on 2019/04/17.
  */
@@ -113,7 +113,7 @@ public abstract class DataPoint {
     }
 
     /**
-     * The wind speed in miles per hour.
+     * The wind speed in kilometers per hour.
      *
      * @return double
      */

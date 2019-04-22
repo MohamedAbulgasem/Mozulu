@@ -18,13 +18,14 @@ public final class NetworkUtils {
      * @param context Context
      * @return boolean
      */
-    public static boolean networkIsConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean noNetworkConnectivity(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnected();
+            return activeNetwork == null || !activeNetwork.isConnected();
         }
-        return false;
+        return true;
     }
 
 }

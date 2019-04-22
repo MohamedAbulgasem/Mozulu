@@ -6,4 +6,8 @@
     <color name="colorAccentSecondary">#33343b</color>
     <color name="colorLightDark">#ffffff</color>
     <color name="colorLink">#f84c51</color>
+    <color name="colorGradientCenter">#5c5e65</color>
+    <color name="colorGradientEnd">#33343b</color>
+    <color name="colorGradientStart">#898b93</color>
+    <color name="colorHourlyBackground">#5c5e65</color>
 </resources>

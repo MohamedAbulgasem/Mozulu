@@ -7,4 +7,10 @@
     <color name="colorLightDark">#303030</color>
     <color name="colorLayoutBorder">#818181</color>
     <color name="colorLink">#860000</color>
+    <color name="colorLightText">#ffffff</color>
+    <color name="colorGrayText">#D2D2D2</color>
+    <color name="colorGradientCenter">#be0028</color>
+    <color name="colorGradientEnd">#860000</color>
+    <color name="colorGradientStart">#f84c51</color>
+    <color name="colorHourlyBackground">#be0028</color>
 </resources>

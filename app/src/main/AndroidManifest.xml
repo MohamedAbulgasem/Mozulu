@@ -5,6 +5,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.location.network" />
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="false"
@@ -26,15 +30,18 @@
         </activity>
         <activity
             android:name=".ui.DailyTempsActivity"
-            android:label="@string/title_activity_daily_temps" />
+            android:label="@string/title_activity_daily_temps"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.WeatherDetailsActivity"
             android:label="@string/title_activity_weather_details"
-            android:parentActivityName=".ui.DailyTempsActivity" />
+            android:parentActivityName=".ui.DailyTempsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.DailyTempsActivity" />
+            android:parentActivityName=".ui.DailyTempsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

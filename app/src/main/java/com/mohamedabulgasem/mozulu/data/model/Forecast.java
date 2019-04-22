@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * Created by Mohamed Abulgasem on 2019/04/16.
  */
-public class ForecastResponse {
+public class Forecast {
 
     @SerializedName("latitude")
     private double latitude;
@@ -34,7 +34,7 @@ public class ForecastResponse {
      * if not present GSON would still create a default no-args constructor
      * and use that - which is the case with the other domain objects in this project.
      */
-    public ForecastResponse() {}
+    public Forecast() {}
 
     /**
      * The requested latitude.

@@ -6,20 +6,22 @@ package com.mohamedabulgasem.mozulu.utils;
 public final class AppConstants {
 
     public static final String DARK_SKY_API_BASE_URL = "https://api.darksky.net/forecast/";
-    public static final String DARK_SKY_API_SECRET_KEY = "065fc238fae0130cdf7b60e2fea1696a";
-    // ForecastResponse icon constants
-    public static final String CLEAR_DAY = "clear-day";
-    public static final String CLEAR_NIGHT = "clear-night";
-    public static final String RAIN = "rain";
-    public static final String SNOW = "snow";
-    public static final String SLEET = "sleet";
-    public static final String WIND = "wind";
-    public static final String FOG = "fog";
-    public static final String CLOUDY = "cloudy";
-    public static final String PARTLY_CLOUDY_DAY = "partly-cloudy-day";
-    public static final String PARTLY_CLOUDY_NIGHT = "partly-cloudy-night";
+    public static final String DARK_SKY_API_SECRET_KEY = "MDY1ZmMyMzhmYWUwMTMwY2RmN2I2MGUyZmVhMTY5NmE=";
+    public static final int LOCATION_REQUEST_CODE = 1212;
     // Intent related constants
     public static final String INTENT_ACTION_VIEW = "android.intent.action.VIEW";
+    public static final String DAILY_POSITION = "DAILY_POSITION";
+    // Forecast possible icon constants
+    static final String CLEAR_DAY = "clear-day";
+    static final String CLEAR_NIGHT = "clear-night";
+    static final String RAIN = "rain";
+    static final String SNOW = "snow";
+    static final String SLEET = "sleet";
+    static final String WIND = "wind";
+    static final String FOG = "fog";
+    static final String CLOUDY = "cloudy";
+    static final String PARTLY_CLOUDY_DAY = "partly-cloudy-day";
+    static final String PARTLY_CLOUDY_NIGHT = "partly-cloudy-night";
     // SharedPrefUtils constants
     static final String SHARED_PREF_NAME = "userInfo";
     static final String SP_NIGHT_MODE = "nightMode";

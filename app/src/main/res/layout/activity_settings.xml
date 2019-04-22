@@ -3,14 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.SettingsActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:alpha="0.9"
+        app:cardBackgroundColor="@color/colorAccentSecondary"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha="0.9"
-        android:background="@color/colorAccentSecondary"
         android:orientation="vertical"
         android:padding="30dp">
 
@@ -79,16 +86,19 @@
             android:background="@color/colorLayoutBorder" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onDarkSkyReferenceLinkClicked"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:layout_gravity="center"
             android:text="@string/settings_dark_sky_reference"
             android:textColor="@color/colorLink"
             android:textSize="12sp"
             android:textStyle="italic" />
 
     </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </ScrollView>

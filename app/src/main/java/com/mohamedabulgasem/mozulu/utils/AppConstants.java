@@ -9,8 +9,8 @@ public final class AppConstants {
     public static final String DARK_SKY_API_SECRET_KEY = "MDY1ZmMyMzhmYWUwMTMwY2RmN2I2MGUyZmVhMTY5NmE=";
     public static final int LOCATION_REQUEST_CODE = 1212;
     // Intent related constants
-    public static final String INTENT_ACTION_VIEW = "android.intent.action.VIEW";
     public static final String DAILY_POSITION = "DAILY_POSITION";
+    public static final String INTENT_ACTION_VIEW = "android.intent.action.VIEW";
     // Forecast possible icon constants
     static final String CLEAR_DAY = "clear-day";
     static final String CLEAR_NIGHT = "clear-night";

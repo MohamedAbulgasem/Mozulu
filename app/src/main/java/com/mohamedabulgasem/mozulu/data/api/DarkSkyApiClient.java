@@ -3,6 +3,7 @@ package com.mohamedabulgasem.mozulu.data.api;
 import android.util.Log;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.mohamedabulgasem.mozulu.utils.AppConstants.DARK_SKY_API_BASE_URL;
@@ -31,6 +32,7 @@ public final class DarkSkyApiClient {
                     .Builder()
                     .baseUrl(DARK_SKY_API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
                     .create(DarkSkyApiService.class);
             Log.d(TAG, "Dark Sky API Service Initialised");

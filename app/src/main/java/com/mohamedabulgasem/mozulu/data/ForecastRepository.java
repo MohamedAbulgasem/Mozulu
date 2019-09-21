@@ -11,6 +11,7 @@ import com.mohamedabulgasem.mozulu.data.model.datapoints.DailyDataPoint;
 
 import org.greenrobot.eventbus.EventBus;
 
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,25 +67,20 @@ public final class ForecastRepository {
         String key = new String(Base64.decode(DARK_SKY_API_SECRET_KEY, Base64.DEFAULT));
         String latitude = String.valueOf(location.getLatitude());
         String longitude = String.valueOf(location.getLongitude());
-        DarkSkyApiClient.getService().getForecast(key, latitude, longitude)
-                .enqueue(new Callback<Forecast>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Forecast> call,
-                                           @NonNull Response<Forecast> response) {
-                        if (response.isSuccessful() && null != response.body()) {
-                            forecast = response.body();
-                            EventBus.getDefault().post(true);
-                        } else {
-                            Log.e(TAG, "Empty Forecast payload!");
-                            EventBus.getDefault().post(false);
-                        }
-                    }
-                    @Override
-                    public void onFailure(@NonNull Call<Forecast> call, @NonNull Throwable t) {
-                        Log.e(TAG, "Forecast request failed because: \n" + t.getMessage());
-                        EventBus.getDefault().post(false);
-                    }
-                });
+        DarkSkyApiClient.getService()
+                .getForecast(key, latitude, longitude)
+                .retry(3)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .doOnError(throwable -> {
+                    Log.e(TAG, "Forecast request failed because: \n" + throwable.getMessage());
+                    EventBus.getDefault().post(false);
+                })
+                .doOnSuccess(aForecast -> {
+                    forecast = aForecast;
+                    EventBus.getDefault().post(true);
+                })
+                .subscribe();
     }
 
     /**

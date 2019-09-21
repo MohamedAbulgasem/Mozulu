@@ -10,7 +10,10 @@ buildscript {
             // App dependencies
             'supportLibrary'   : '28.0.0',
             'retrofit'         : '2.4.0',
-            'butterknife'      : '8.8.1'
+            'butterknife'      : '8.8.1',
+            'dagger2'          : '2.24',
+            'rxandroid'        : '2.1.1',
+            'rxjava'           : '2.2.6'
     ]
     ext.names = [
             'applicationId'    : 'com.mohamedabulgasem.mozulu'
@@ -20,7 +23,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.5.0'
     }
 }
 

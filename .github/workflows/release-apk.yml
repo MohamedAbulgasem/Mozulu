@@ -1,0 +1,72 @@
+name: Release APK
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    name: Build release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@v4
+        with:
+          # The full history is required: versionCode is derived from the
+          # repository's commit count in the root build script.
+          fetch-depth: 0
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+
+      - name: Install Android SDK packages
+        run: |
+          set -euo pipefail
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKMANAGER" --licenses > /dev/null || true
+          "$SDKMANAGER" "platforms;android-28" "build-tools;28.0.3"
+
+      - name: Generate an ephemeral signing key
+        run: |
+          set -euo pipefail
+          keytool -genkeypair \
+            -keystore "$RUNNER_TEMP/mozulu.jks" \
+            -storetype JKS \
+            -storepass mozulu-ci \
+            -keypass mozulu-ci \
+            -alias mozulu \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Mozulu, OU=Mozulu, O=Mozulu, L=Unknown, ST=Unknown, C=ZA"
+
+      - name: Assemble release APK
+        env:
+          MOZULU_KEYSTORE_FILE: ${{ runner.temp }}/mozulu.jks
+          MOZULU_KEYSTORE_PASSWORD: mozulu-ci
+          MOZULU_KEY_ALIAS: mozulu
+          MOZULU_KEY_PASSWORD: mozulu-ci
+        run: ./gradlew clean assembleRelease --stacktrace
+
+      - name: Verify and describe the APK
+        run: |
+          set -euo pipefail
+          APK=$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)
+          echo "APK: $APK"
+          ls -l "$APK"
+          sha256sum "$APK"
+          "$ANDROID_SDK_ROOT/build-tools/28.0.3/apksigner" verify --print-certs "$APK"
+          "$ANDROID_SDK_ROOT/build-tools/28.0.3/aapt" dump badging "$APK" | head -n 5
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: mozulu-release-apk
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: error

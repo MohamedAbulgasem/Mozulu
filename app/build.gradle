@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+// Release signing is driven by environment variables so that no key material
+// ever lives in the repository. When they are absent (a normal local build)
+// the release variant is simply left unsigned.
+def keystoreFilePath = System.getenv("MOZULU_KEYSTORE_FILE")
+def hasReleaseKeystore = keystoreFilePath != null && !keystoreFilePath.isEmpty() && file(keystoreFilePath).exists()
+
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
@@ -11,12 +17,31 @@ android {
         resConfigs 'en'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            if (hasReleaseKeystore) {
+                storeFile file(keystoreFilePath)
+                storePassword System.getenv("MOZULU_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("MOZULU_KEY_ALIAS")
+                keyPassword System.getenv("MOZULU_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (hasReleaseKeystore) {
+                signingConfig signingConfigs.release
+            }
         }
+    }
+    lintOptions {
+        // Packaging an APK should not be blocked by lint findings in a code base
+        // that targets an older SDK.
+        checkReleaseBuilds false
+        abortOnError false
     }
     compileOptions {
         targetCompatibility 1.8

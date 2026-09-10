@@ -8,6 +8,8 @@ jobs:
   build:
     name: Build release APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Check out sources
@@ -74,3 +76,27 @@ jobs:
             app/build/outputs/apk/release/*.apk
             app/build/outputs/mapping/release/mapping.txt
           if-no-files-found: error
+
+      - name: Publish the APK to a transport branch
+        # Actions artifacts live on a storage host that some networks cannot
+        # reach, so the build output is also pushed to a throwaway branch that
+        # can be fetched with plain git. The branch holds a single commit and
+        # can be deleted once the APK has been collected.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          APK=$(find app/build/outputs/apk/release -name '*.apk' | head -n 1)
+          STAGING="$RUNNER_TEMP/apk-transport"
+          mkdir -p "$STAGING"
+          cp "$APK" "$STAGING/"
+          cp app/build/outputs/mapping/release/mapping.txt "$STAGING/" 2>/dev/null || true
+          cd "$STAGING"
+          git init -q
+          git checkout -q -b ci-apk-artifact
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Release APK built from $GITHUB_SHA"
+          git push -q --force "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" ci-apk-artifact
+          echo "Pushed $(basename "$APK") to branch ci-apk-artifact"
